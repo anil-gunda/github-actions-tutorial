@@ -1,25 +1,27 @@
-name: Hello World workflow
+name: Run Hello World
+
 on:
   push:
-    branches :
+    branches:
       - main
-  pull_request:
-    branches :
-      - main
-  workflow_dispatch:
+jobs:
 
-jobs: 
-  hello: 
+  run-hello-world:
+    name: Run Hello World
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-      - name: hello World
-        run: echo "Hello World"
-        shell: bash
-  
-  goodbye:
-    runs-on: ubuntu-latest
-    steps:
-      - name: goodbye World
-        run: echo "Good Bye World"
-        shell: bash
+      - name: checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up python
+        uses: actions/setuup-python@v4
+        with:
+         python-version: '3.9'
+
+      - name: Run Hello World
+        run: |
+            cd hello_world_python
+            python hello_world.py
+        
+      
