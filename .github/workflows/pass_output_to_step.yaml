@@ -13,4 +13,4 @@ jobs:
         run: echo "BUILD_STAGE=debug" >> $GITHUB_OUTPUT
 
       - name: Get Stage
-        run: echo "The Build stage is ${{ steps.set-debug-stage.output.BUILD_STAGE }}"
+        run: echo "The Build stage is ${{ steps.set-debug-stage.outputs.BUILD_STAGE }}"
