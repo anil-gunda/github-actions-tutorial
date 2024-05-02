@@ -37,6 +37,6 @@ jobs:
                     --header 'content-type': application/json' \
                     --data '{
                         "title": "Failure: ${{ inputs.title }}",
-                        "body": "Details": $${{ inputs.body }}
+                        "body": "Details": $${{ inputs.body }}"
                     }' \
                     --fail
