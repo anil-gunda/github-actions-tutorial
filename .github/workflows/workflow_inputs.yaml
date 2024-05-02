@@ -1,0 +1,42 @@
+name: Sample workflow to understand Input Handling
+on:
+    push:
+        branches:
+          - main
+    # Allows to run workflows this workflow from another workflow
+    workflow_call:
+        inputs:
+            title:
+                required: true
+                type: string
+            body:
+                required: true
+                type: string
+    # Allows to call this manually from Actions tab
+    workflow_dispatch:
+        inputs:
+            title:
+                required: true
+                type: string
+            body:
+                required: true
+                type: string
+
+jobs:
+    create_issue_on_failure:
+      runs-on: ubuntu-latest
+        
+      permissions:
+            issues: write
+      steps:
+            - name: Create Issue using REST API
+              run: |
+                curl --request POST \
+                    --url https://api.github.com/repos/${{ github.repository }}/issues \
+                    --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+                    --header 'content-type': application\json' \
+                    --data '{
+                        "title": "Failure: ${{ inputs.title }}",
+                        "body": "Details": $${{ inputs.body }}
+                    }' \
+                    --fail
